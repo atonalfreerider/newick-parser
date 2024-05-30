@@ -183,6 +183,8 @@ public static class NewickTreeParser
 
     public delegate T Aggregator<T>(string label, List<T> children, float? distance, string features);
 
+    static int anonCounter = 0;
+    
     static T ParseNewickSubtree<T>(
         string newick,
         Aggregator<T> aggregator,
@@ -199,6 +201,13 @@ public static class NewickTreeParser
         string features = featureParser(parts.Item4);
         float? distance = distanceParser(parts.Item3);
 
-        return aggregator(parts.Item2, children, distance, features);
+        string label = parts.Item2;
+        if (string.IsNullOrEmpty(label))
+        {
+            label = anonCounter.ToString();
+            anonCounter++;
+        }
+        
+        return aggregator(label, children, distance, features);
     }
 }

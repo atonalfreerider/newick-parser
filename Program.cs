@@ -11,6 +11,20 @@ public class Program
                 new TreeNode(label, children, distance, features));
 
         tree.Print();
+
+        TreeNode? homo = tree.FindChild("Hominidae");
+        if (homo != null)
+        {
+            Console.WriteLine(homo.Label);
+            Console.WriteLine(homo.DistanceToRoot());
+        }
+        
+        TreeNode? staph = tree.FindChild("Staphylococcaceae");
+        if (staph != null)
+        {
+            Console.WriteLine(staph.Label);
+            Console.WriteLine(staph.DistanceToRoot());
+        }
     }
 }
 
